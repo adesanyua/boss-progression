@@ -1,0 +1,11 @@
+// Boss Progression - general settings. Encoding: UTF-8.
+// Location: <Minecraft or server>/config/bossprogression/
+// JSONC = JSON with // and /* ... */ comments. Use double-quoted keys and strings.
+// Write true/false without quotes, use decimal points and commas between fields.
+// Save your changes and run /reload (operator permissions required), or restart the world/server.
+{
+  // true: load bosses/*.jsonc and *.json over built-in/datapack definitions.
+  // false: use only datapacks and built-in defaults; boss config files are not deleted.
+  // The server controls the rules and sends names/requirements/rewards to the client's Journal.
+  "enable_boss_configs": true
+}

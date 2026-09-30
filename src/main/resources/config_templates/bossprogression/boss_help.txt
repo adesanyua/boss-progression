@@ -1,0 +1,60 @@
+// Boss Progression - boss config. Edit the values below; these lines are hints.
+// Created automatically on the first mod startup; NOT overwritten during updates.
+// Format: JSONC (UTF-8). // comments are allowed. Double-quote keys and strings,
+// write true/false without quotes, use decimal points and commas between fields/items.
+// Apply changes with /reload (OP) or a world/server restart. Errors: logs/latest.log.
+// This config overrides a datapack with the same root id. enabled:false disables that boss.
+// New HP/name/NBT apply to future spawns. Existing encounters/progress are not reset.
+//
+// REQUIREMENTS (conditions): all must be completed; required_count > 0; condition IDs must be unique.
+// Every type uses the bossprogression: prefix, e.g. "bossprogression:kill_entity".
+// kill_entity: entity; kill_entity_tag: tag; loot_chest: optional loot_table.
+// obtain_item / submit_item / craft_item: item. mine_block: block.
+// visit_biome: biome; visit_dimension: dimension; advancement: advancement;
+// defeat_boss: boss. These four require required_count = 1 (may be omitted).
+// trade / fish: optional item. required_count is the number of trades or caught items.
+// obtain_item requires the full quantity at once; submit_item consumes items submitted through the Journal.
+// loot_chest counts the first opening of a chest/barrel with ungenerated loot, not every chest.
+// Optional kill_entity/kill_entity_tag filters:
+// "filters": {"dimension":"minecraft:overworld","biome":"minecraft:dark_forest",
+//             "time":"night","weapon_tag":"minecraft:swords"}
+// time: day/night. weapon_tag excludes projectiles and checks the melee weapon.
+// Example additional requirement:
+// {"type":"bossprogression:submit_item","id":"tribute","item":"minecraft:emerald","required_count":32}
+//
+// PLACEMENT (dungeon):
+// structure: "mode":"structure", "structure":"minecraft:mansion", "dimension":"minecraft:overworld".
+// nbt: "mode":"nbt", "nbt":"arenas/room.nbt", "spawn_offset":[8,1,8],
+//      "min_distance":128, "max_distance":512, "dimension":"minecraft:overworld".
+// NBT file: config/bossprogression/structures/arenas/room.nbt. Do not use .. or absolute paths.
+// biome: "mode":"biome", "biome":"minecraft:soul_sand_valley", "dimension":"minecraft:the_nether".
+// Optional: activation_radius 4-128; search_radius_chunks 1-128;
+// min_distance 0-8192 < max_distance 1-8192. Legacy procedural: size 3-128, template "test_room".
+// Biome/legacy procedural encounters do not destroy the surrounding terrain.
+//
+// COLLAPSE (dungeon.destruction):
+// destroy_after_defeat true/false; delay_ticks 0-72000 (20 ticks = 1 second);
+// blocks_per_tick 1-128; preserve_bottom_layers 1-16; ruin_chance 0-1; ruin_max_height 1-12.
+// ruin_chance is a wall-cluster probability, not an exact block percentage; 0 keeps only protected remnants/foundation.
+// Optional tags: structure_block_tag = "bossprogression:structure_cleanup",
+// protected_block_tag = "bossprogression:protected_terrain". Terrain/protection overrides allowed materials.
+//
+// MOB (mob): max_health 1-1024 HP (2 HP = 1 heart), extra_armor 0-30, extra_damage 0-2048.
+// name is the in-world name; name_visible true/false. Remove name for SNBT CustomName / display_name.
+// attributes sets base values; installed mod attributes are supported:
+// "attributes":{"minecraft:generic.movement_speed":0.35,"minecraft:generic.armor_toughness":6,
+//               "minecraft:generic.knockback_resistance":0.5,"minecraft:generic.follow_range":48}
+// Unknown/unsupported attributes are skipped with a warning; Minecraft clamps values to its limits.
+// extra_damage applies to hits/projectiles attributed to this boss, before the victim's armor.
+// mob.nbt uses SNBT INSIDE a JSON string, e.g. "nbt":"{Silent:0b,NoAI:0b}".
+// Equipment: "nbt":"{ArmorItems:[{},{},{},{id:'minecraft:diamond_helmet',count:1}],ArmorDropChances:[0f,0f,0f,0f]}".
+// UUID, Pos, Motion, Dimension, passengers/team/leash data, ForgeData/NeoForgeData/attachments are forbidden.
+// SNBT: <=32768 characters, nesting <=32. name_visible and boss_glowing override raw SNBT flags.
+// max_health overrides the base value in attributes; when present, the boss starts at full HP.
+// Without max_health, raw Health > 0 sets starting HP capped at the maximum; without Health, HP is full.
+// NoAI/Invulnerable and other entity-specific tags can make a boss unsuitable for combat - use with care.
+//
+// REWARDS (rewards): {"type":"bossprogression:item","item":"minecraft:emerald","count":32}
+// or {"type":"bossprogression:experience","amount":500}. count 1-2304; XP means points, not levels.
+// repeatable true allows a manual reset after victory/rewards; boss_glowing true enables the outline.
+// Keys are case-sensitive. Unknown fields do not add functionality, even if the JSON syntax is valid.

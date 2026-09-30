@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:dirt",
+    "#minecraft:sand",
+    "minecraft:bedrock",
+    "minecraft:stone",
+    "minecraft:granite",
+    "minecraft:diorite",
+    "minecraft:andesite",
+    "minecraft:deepslate",
+    "minecraft:tuff",
+    "minecraft:calcite",
+    "minecraft:gravel",
+    "minecraft:clay",
+    "minecraft:mud",
+    "minecraft:farmland",
+    "minecraft:dirt_path",
+    "minecraft:netherrack",
+    "minecraft:basalt",
+    "minecraft:smooth_basalt",
+    "minecraft:blackstone",
+    "minecraft:soul_sand",
+    "minecraft:soul_soil",
+    "minecraft:end_stone",
+    "minecraft:water",
+    "minecraft:lava"
+  ]
+}

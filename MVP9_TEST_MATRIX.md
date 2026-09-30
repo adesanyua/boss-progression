@@ -1,0 +1,21 @@
+# MVP9 verification
+
+Automated checks performed: `./gradlew build --no-configuration-cache --rerun-tasks` (pass); `./gradlew runServer --no-configuration-cache` (reached `Done`, loaded 3 definitions); `./gradlew runGameTestServer --no-configuration-cache` (all 12 required destruction/mob-settings/config-sync tests passed); both PNGs have valid PNG chunk CRCs. No interactive client tests were performed.
+
+## Manual runClient / two-player checklist
+
+- Verify Journal and Invitation sprites appear without missing textures; replace the placeholder pixel art at `src/main/resources/assets/bossprogression/textures/item/boss_journal.png` and `.../invitation.png` if desired.
+- Verify compact Journal text (80% scale, 12 detail lines/page), red names/statuses for defeated bosses and green for every other state. Completed requirements get a green pixel check; incomplete requirements get a red cross, with progress beside the label. Check threshold updates, reset, Russian/English wrapping, long names/filters, pagination and unchanged click hitboxes. No Unicode checkmark font support is required.
+- Verify automatically generated `config/bossprogression/` JSONC files have English comments/examples/README after the first mod startup, user edits surviving restart, disk-over-pack priority, global/per-boss switches, bad-file fallback and /reload rereads. Join with different client configs: Journal must show server rules; reload with the book open, F3+T in single-player, and reconnect to a different server must not leak/change rules. See `docs/CONFIG_FILES.md`.
+- Load a third-party definition omitting `rewards`, `repeatable`, and `boss_glowing`: defaults must be empty/false/false. Toggle glowing and check the actual outline after chunk reload.
+- Release bosses are Evoker, Elder Guardian and Wither; the old test definition has been removed. Use OP unlock commands to exercise encounters quickly. Check configured item/XP rewards, full inventory (excess dropped), duplicate death event, relog and restart. New conditions, filters and release requirements are documented in `docs/CONDITIONS.md`.
+- Test `mob` settings from `docs/BOSS_MOB_SETTINGS.md`: HP/armor, melee and boss-attributed spells/projectiles, equipment, plain/styled names, chunk unload/restart without healing or stacking, collision for scaled mobs, third-party entity NBT, `/reload` affecting only future spawns. Release Evoker: «The highest evoker», 100 base HP, +20 armor. Guardian/Wither retain vanilla base HP and zero bonuses.
+- Craft/place/open an ordinary chest and barrel: neither must increase the counter. Check a blocked chest and a sneak-click that does not open the menu: neither counts. Opening a loot-table double chest from either half must count just once; repeat after its table was consumed: no increment.
+- Disconnect owner before the killing blow and have a second player kill the encounter boss; on reconnect, verify only owner gets DEFEATED and reward; repeat with two independent owners.
+- Confirm reset button is absent for nonrepeatable definitions, present after a completed repeatable encounter and not before. Spam/reset: counters should be 0, dungeon location cleared, old invitation only displays obsolete coordinates, old boss/dungeon cannot complete new cycle. Open two new, ungenerated loot-table containers again, earn new dungeon and a second per-cycle reward. OP `/bossprogress reset <boss>` and `reset all` remain force operations.
+
+- Inspect collapse ruins in mansion/monument/fortress and NBT houses: small jagged grounded wall remnants rather than only a foundation; roofs/containers still disappear. Check ruin_chance 0 and 1, ruin_max_height, restart mid-collapse, preserved terrain and player edits. See `docs/DUNGEON_DESTRUCTION.md`.
+
+## Durability caveat
+
+Inventory/XP and attachment persistence are not one atomic transaction. The reward claim is marked before delivery to prioritize no duplicate grants; a server crash or runtime exception during delivery may lose part/all of a reward. This requires a transactional mailbox or durable per-item ledger for strict crash-proof exactly-once delivery. Journal names/conditions/rewards are synchronized from server definitions at login and reload; client resources are only a disconnected/pre-sync fallback. Real multiplayer packet delivery and GUI changes still need manual verification.

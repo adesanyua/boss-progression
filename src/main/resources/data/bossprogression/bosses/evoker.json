@@ -1,0 +1,59 @@
+{
+  "id": "bossprogression:evoker",
+  "display_name": "The highest evoker",
+  "boss_entity": "minecraft:evoker",
+  "conditions": [
+    {
+      "type": "bossprogression:kill_entity_tag",
+      "id": "kill_illagers",
+      "tag": "bossprogression:illagers",
+      "required_count": 200
+    },
+    {
+      "type": "bossprogression:loot_chest",
+      "id": "loot_chests",
+      "required_count": 100
+    }
+  ],
+  "dungeon": {
+    "mode": "structure",
+    "dimension": "minecraft:overworld",
+    "structure": "minecraft:mansion",
+    "search_radius_chunks": 128,
+    "activation_radius": 24,
+    "destruction": {
+      "destroy_after_defeat": true,
+      "delay_ticks": 200,
+      "blocks_per_tick": 32,
+      "ruin_chance": 0.35,
+      "ruin_max_height": 5
+    }
+  },
+  "repeatable": true,
+  "boss_glowing": true,
+  "rewards": [
+    {
+      "type": "bossprogression:item",
+      "item": "minecraft:emerald",
+      "count": 32
+    },
+    {
+      "type": "bossprogression:item",
+      "item": "minecraft:totem_of_undying",
+      "count": 1
+    },
+    {
+      "type": "bossprogression:experience",
+      "amount": 500
+    }
+  ],
+  "mob": {
+    "name": "The highest evoker",
+    "name_visible": true,
+    "max_health": 100,
+    "extra_armor": 20,
+    "extra_damage": 0,
+    "attributes": {},
+    "nbt": "{}"
+  }
+}

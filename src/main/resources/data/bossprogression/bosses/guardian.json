@@ -1,0 +1,81 @@
+{
+  "id": "bossprogression:guardian",
+  "display_name": "The Elder Guardian",
+  "boss_entity": "minecraft:elder_guardian",
+  "boss_glowing": true,
+  "repeatable": true,
+  "conditions": [
+    {
+      "type": "bossprogression:defeat_boss",
+      "id": "defeat_evoker",
+      "required_count": 1,
+      "boss": "bossprogression:evoker"
+    },
+    {
+      "type": "bossprogression:visit_biome",
+      "id": "visit_deep_ocean",
+      "required_count": 1,
+      "biome": "minecraft:deep_ocean"
+    },
+    {
+      "type": "bossprogression:kill_entity",
+      "id": "kill_guardians",
+      "required_count": 32,
+      "entity": "minecraft:guardian",
+      "filters": {
+        "dimension": "minecraft:overworld"
+      }
+    },
+    {
+      "type": "bossprogression:fish",
+      "id": "fish_cod",
+      "required_count": 16,
+      "item": "minecraft:cod"
+    },
+    {
+      "type": "bossprogression:submit_item",
+      "id": "offer_prismarine",
+      "required_count": 32,
+      "item": "minecraft:prismarine_shard"
+    }
+  ],
+  "rewards": [
+    {
+      "type": "bossprogression:item",
+      "item": "minecraft:sponge",
+      "count": 8
+    },
+    {
+      "type": "bossprogression:item",
+      "item": "minecraft:diamond",
+      "count": 8
+    },
+    {
+      "type": "bossprogression:experience",
+      "amount": 1000
+    }
+  ],
+  "dungeon": {
+    "mode": "structure",
+    "dimension": "minecraft:overworld",
+    "structure": "minecraft:monument",
+    "search_radius_chunks": 64,
+    "activation_radius": 24,
+    "destruction": {
+      "destroy_after_defeat": true,
+      "delay_ticks": 200,
+      "blocks_per_tick": 32,
+      "ruin_chance": 0.35,
+      "ruin_max_height": 5
+    }
+  },
+  "mob": {
+    "name": "The Elder Guardian",
+    "name_visible": true,
+    "max_health": 80,
+    "extra_armor": 0,
+    "extra_damage": 0,
+    "attributes": {},
+    "nbt": "{}"
+  }
+}
